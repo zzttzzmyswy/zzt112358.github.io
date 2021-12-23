@@ -82,8 +82,8 @@ $(document).ready(function () {
       labels: {
         first: '<i class="fa fa-angle-double-left"></i>',
         last: '<i class="fa fa-angle-double-right"></i>',
-        previous: '<i class="fa fa-angle-left"></i>',
-        next: '<i class="fa fa-angle-right"></i>'
+        previous: '上一页',
+        next: '下一页'
       },
       cssClasses: {
         root: 'pagination',
