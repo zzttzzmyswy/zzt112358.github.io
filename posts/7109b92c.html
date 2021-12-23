@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="/lib/font-awesome/fonts/fonts.css/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ZZT.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ZZT.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ZZT.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/zzt.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="STM32,STM32CubeMX,ARM,HAL,LCD,LTDC,Keil,MKD-ARM," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="ZZT Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="事先安排已知使用STM32CubeMX配置LTDC时所有模块初始化流程如下：  STM32CubeMX配置使用芯片我所使用的单片机型号是STM32F429IGT6，板子是野火的开发板，主频最高180MHz  时钟配置开启外部高速时钟HSE在配置页面RCC下开启HSE  开启LCD-TFT时钟在配置页面开启LTDC功能  配置时钟在时钟配置页面配置系统主频和LCD-TFT频率   注：LCD-TF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32CubeMX配置LTDC">
+<meta property="og:url" content="https://zztweb.top/posts/7109b92c.html">
+<meta property="og:site_name" content="ZZT Blog">
+<meta property="og:description" content="事先安排已知使用STM32CubeMX配置LTDC时所有模块初始化流程如下：  STM32CubeMX配置使用芯片我所使用的单片机型号是STM32F429IGT6，板子是野火的开发板，主频最高180MHz  时钟配置开启外部高速时钟HSE在配置页面RCC下开启HSE  开启LCD-TFT时钟在配置页面开启LTDC功能  配置时钟在时钟配置页面配置系统主频和LCD-TFT频率   注：LCD-TF">
+<meta property="og:locale">
+<meta property="og:image" content="https://api.ixiaowai.cn/gqapi/gqapi.php">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415114924.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415115526.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415115900.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415115631.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415120512.jpg">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415120826.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415121844.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122152.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122236.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122710.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122836.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122929.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415123227.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415123350.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415190615.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124348.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124431.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124637.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124838.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124951.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415130215.png">
+<meta property="article:published_time" content="2020-04-15T03:36:46.000Z">
+<meta property="article:modified_time" content="2021-12-23T10:18:10.511Z">
+<meta property="article:author" content="ZZT">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="STM32CubeMX">
+<meta property="article:tag" content="ARM">
+<meta property="article:tag" content="HAL">
+<meta property="article:tag" content="LCD">
+<meta property="article:tag" content="LTDC">
+<meta property="article:tag" content="Keil">
+<meta property="article:tag" content="MKD-ARM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.ixiaowai.cn/gqapi/gqapi.php">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zztweb.top/posts/7109b92c.html"/>
+
+
+
+
+
+  <title>STM32CubeMX配置LTDC | ZZT Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZZT Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zztweb.top/posts/7109b92c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/hand.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZZT Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">STM32CubeMX配置LTDC</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-15T11:36:46+08:00">
+                2020-04-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-12-23T18:18:10+08:00">
+                2021-12-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/STM32/" itemprop="url" rel="index">
+                    <span itemprop="name">STM32</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/7109b92c.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/7109b92c.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/7109b92c.html" class="leancloud_visitors" data-flag-title="STM32CubeMX配置LTDC">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://api.ixiaowai.cn/gqapi/gqapi.php" alt="PIC"></p>
+<h2 id="事先安排"><a href="#事先安排" class="headerlink" title="事先安排"></a>事先安排</h2><p>已知使用STM32CubeMX配置LTDC时所有模块初始化流程如下：</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415114924.png"></p>
+<h2 id="STM32CubeMX配置"><a href="#STM32CubeMX配置" class="headerlink" title="STM32CubeMX配置"></a>STM32CubeMX配置</h2><h3 id="使用芯片"><a href="#使用芯片" class="headerlink" title="使用芯片"></a>使用芯片</h3><p>我所使用的单片机型号是STM32F429IGT6，板子是野火的开发板，主频最高180MHz</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415115526.png"></p>
+<h3 id="时钟配置"><a href="#时钟配置" class="headerlink" title="时钟配置"></a>时钟配置</h3><h4 id="开启外部高速时钟HSE"><a href="#开启外部高速时钟HSE" class="headerlink" title="开启外部高速时钟HSE"></a>开启外部高速时钟HSE</h4><p>在配置页面RCC下开启HSE</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415115900.png"></p>
+<h4 id="开启LCD-TFT时钟"><a href="#开启LCD-TFT时钟" class="headerlink" title="开启LCD-TFT时钟"></a>开启LCD-TFT时钟</h4><p>在配置页面开启LTDC功能</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415115631.png"></p>
+<h4 id="配置时钟"><a href="#配置时钟" class="headerlink" title="配置时钟"></a>配置时钟</h4><p>在时钟配置页面配置系统主频和LCD-TFT频率</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415120512.jpg"></p>
+<blockquote>
+<p>注：LCD-TFT频率过高会导致花屏，缺失等不正常显示行为</p>
+</blockquote>
+<h3 id="配置串口"><a href="#配置串口" class="headerlink" title="配置串口"></a>配置串口</h3><p>在配置页面开启串口异步模式，其余按照默认量设置即可</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415120826.png"></p>
+<h3 id="配置FMC-SDRAM"><a href="#配置FMC-SDRAM" class="headerlink" title="配置FMC-SDRAM"></a>配置FMC-SDRAM</h3><h4 id="功能配置"><a href="#功能配置" class="headerlink" title="功能配置"></a>功能配置</h4><p>查找官方资料，找到FMC的地址框图</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415121844.png"></p>
+<p>这里我使用的是<code>SDRAM Bank 2</code>作为显存，起始地址为<code>0xD0000000</code></p>
+<p>在配置页面开启SDRAM，其设置如下</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122152.png"></p>
+<p>SDRAM详细设置如下</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122236.png"></p>
+<p>其中<code>SDRAM control</code>设置不必多说，但下面的<code>SDRAM timing in memory clock cycles</code>的配置是根据你所用的SDRAM芯片种类所确定的，我所使用的芯片型号是<code>IS42S16400J-7TLI</code>配置如图，其实实在不确定的话都设置为16也不是不可以</p>
+<h4 id="引脚配置"><a href="#引脚配置" class="headerlink" title="引脚配置"></a>引脚配置</h4><p>选择<code>GPIO Settings</code>标签页，查看此处设置的引脚是否与开发板原理图上的引脚相对应</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122710.png"></p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122836.png"></p>
+<h3 id="配置LTDC"><a href="#配置LTDC" class="headerlink" title="配置LTDC"></a>配置LTDC</h3><h4 id="功能配置-1"><a href="#功能配置-1" class="headerlink" title="功能配置"></a>功能配置</h4><h5 id="背景配置"><a href="#背景配置" class="headerlink" title="背景配置"></a>背景配置</h5><p>在配置页面LTDC下选择数据类型，这里我选择的是RGB888,然后按照下图数据配置</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415122929.png"></p>
+<p>其中，下图这两项由显示屏的所决定，可自行查阅</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415123227.png"></p>
+<p>然后，如下图设置低电位使能和配置时钟，最下面的三项是设置背景颜色的</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415123350.png"></p>
+<h5 id="图层显存配置"><a href="#图层显存配置" class="headerlink" title="图层显存配置"></a>图层显存配置</h5><p>总图如下</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415190615.png"></p>
+<h4 id="引脚配置-1"><a href="#引脚配置-1" class="headerlink" title="引脚配置"></a>引脚配置</h4><p>切记，一定要比对引脚是否正确，并且把所有GPIO的速度都设置为<code>Very High</code></p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124348.png"></p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124431.png"></p>
+<h3 id="配置DMA2D"><a href="#配置DMA2D" class="headerlink" title="配置DMA2D"></a>配置DMA2D</h3><p>DMA2D是专门为显存到显示屏高速通信所准备的DMA模块</p>
+<p>其实没啥可配置的，开启DMA2D后选择RTM模式，按照你的图层数据格式选择DMA2D的数据格式即可</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124637.png"></p>
+<h3 id="配置LCD数据使能引脚以及背光引脚"><a href="#配置LCD数据使能引脚以及背光引脚" class="headerlink" title="配置LCD数据使能引脚以及背光引脚"></a>配置LCD数据使能引脚以及背光引脚</h3><p>我这里LTDC开启后是没有配置LCD数据使能引脚和背光引脚的，所以需要按照原理图去配置相应引脚</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124838.png"></p>
+<p>并且我在这里配置了一个LED灯的引脚，用作~~~看着舒服(￣▽￣)~*</p>
+<h3 id="输出MDK-ARM项目文件"><a href="#输出MDK-ARM项目文件" class="headerlink" title="输出MDK-ARM项目文件"></a>输出MDK-ARM项目文件</h3><p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415124951.png"></p>
+<p>至此，STM32CubeMX工作结束</p>
+<h2 id="Keil5配置"><a href="#Keil5配置" class="headerlink" title="Keil5配置"></a>Keil5配置</h2><p>打开那令人眼疼又异常熟悉的界面~~~</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200415130215.png"></p>
+<h3 id="重定向printf-到串口输出函数"><a href="#重定向printf-到串口输出函数" class="headerlink" title="重定向printf()到串口输出函数"></a>重定向printf()到串口输出函数</h3><p>所有项目第一件事：搞定串口输出函数</p>
+<p>引用<code>stdio.h</code>文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN Includes */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;stdio.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END Includes */</span></span><br></pre></td></tr></table></figure>
+
+<p>重写fputc()函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//重定向printf至串口输出函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputc</span><span class="params">(<span class="keyword">int</span> ch,FILE *f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HAL_UART_Transmit(&amp;huart1,(<span class="keyword">uint8_t</span> *)&amp;ch,<span class="number">1</span>,<span class="number">10</span>);</span><br><span class="line">	<span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在错误调用函数下写输出错误代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  This function is executed in case of error occurrence.</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Error_Handler</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/* USER CODE BEGIN Error_Handler_Debug */</span></span><br><span class="line">  <span class="comment">/* User can add his own implementation to report the HAL error return state */</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Error_Handler\r\n&quot;</span>);</span><br><span class="line">  <span class="comment">/* USER CODE END Error_Handler_Debug */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="移植LTDC使能函数"><a href="#移植LTDC使能函数" class="headerlink" title="移植LTDC使能函数"></a>移植LTDC使能函数</h3><p>这种函数通常我会直接写在main.c文件中，写在驱动文件里离STM32CubeMX自动生成的初始化函数太远，不好配置</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  使能显示</span></span><br><span class="line"><span class="comment">  * @retval 无</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">USER_LTCD_ENABLE</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	  <span class="comment">/* 开显示 */</span></span><br><span class="line">  __HAL_LTDC_ENABLE(&amp;hltdc);</span><br><span class="line">  HAL_GPIO_WritePin(LTDC_DISP_GPIO_Port, LTDC_DISP_Pin, GPIO_PIN_SET);<span class="comment">/* LCD_DISP使能*/</span></span><br><span class="line">  HAL_GPIO_WritePin(LTDC_BL_GPIO_Port, LTDC_BL_Pin, GPIO_PIN_SET);  <span class="comment">/* 开背光*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  禁能显示</span></span><br><span class="line"><span class="comment">  * @retval 无</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">USER_LTCD_DISABLE</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	  <span class="comment">/* 关显示 */</span></span><br><span class="line">  __HAL_LTDC_DISABLE(&amp;hltdc);</span><br><span class="line">  HAL_GPIO_WritePin(LTDC_DISP_GPIO_Port, LTDC_DISP_Pin, GPIO_PIN_RESET);<span class="comment">/* LCD_DISP使不能*/</span></span><br><span class="line">  HAL_GPIO_WritePin(LTDC_BL_GPIO_Port, LTDC_BL_Pin, GPIO_PIN_RESET);  <span class="comment">/* 关背光*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在LTDC初始化函数结尾引用LTDC使能函数</p>
+<h3 id="移植SDRAM初始配置函数"><a href="#移植SDRAM初始配置函数" class="headerlink" title="移植SDRAM初始配置函数"></a>移植SDRAM初始配置函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  对SDRAM芯片进行初始化配置</span></span><br><span class="line"><span class="comment">  * @param  None. </span></span><br><span class="line"><span class="comment">  * @retval None.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">USER_SDRAM_ENABLE</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	FMC_SDRAM_CommandTypeDef Command;</span><br><span class="line">	</span><br><span class="line">  __IO <span class="keyword">uint32_t</span> tmpmrd =<span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* Step 1:  Configure a clock configuration enable command */</span></span><br><span class="line">  Command.CommandMode             = FMC_SDRAM_CMD_CLK_ENABLE;</span><br><span class="line">  Command.CommandTarget           = FMC_SDRAM_CMD_TARGET_BANK2;</span><br><span class="line">  Command.AutoRefreshNumber       = <span class="number">1</span>;</span><br><span class="line">  Command.ModeRegisterDefinition  = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Send the command */</span></span><br><span class="line">  HAL_SDRAM_SendCommand(&amp;hsdram1, &amp;Command, SDRAM_TIMEOUT);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Step 2: Insert 100 us minimum delay */</span> </span><br><span class="line">  <span class="comment">/* Inserted delay is equal to 1 ms due to systick time base unit (ms) */</span></span><br><span class="line">  HAL_Delay(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Step 3: Configure a PALL (precharge all) command */</span> </span><br><span class="line">  Command.CommandMode             = FMC_SDRAM_CMD_PALL;</span><br><span class="line">  Command.CommandTarget           = FMC_SDRAM_CMD_TARGET_BANK2;</span><br><span class="line">  Command.AutoRefreshNumber       = <span class="number">1</span>;</span><br><span class="line">  Command.ModeRegisterDefinition  = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Send the command */</span></span><br><span class="line">  HAL_SDRAM_SendCommand(&amp;hsdram1, &amp;Command, SDRAM_TIMEOUT);  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* Step 4: Configure an Auto Refresh command */</span> </span><br><span class="line">  Command.CommandMode             = FMC_SDRAM_CMD_AUTOREFRESH_MODE;</span><br><span class="line">  Command.CommandTarget           = FMC_SDRAM_CMD_TARGET_BANK2;</span><br><span class="line">  Command.AutoRefreshNumber       = <span class="number">4</span>;</span><br><span class="line">  Command.ModeRegisterDefinition  = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Send the command */</span></span><br><span class="line">  HAL_SDRAM_SendCommand(&amp;hsdram1, &amp;Command, SDRAM_TIMEOUT);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* Step 5: Program the external memory mode register */</span></span><br><span class="line">  tmpmrd = (<span class="keyword">uint32_t</span>)SDRAM_MODEREG_BURST_LENGTH_2          |</span><br><span class="line">                     SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL   |</span><br><span class="line">                     SDRAM_MODEREG_CAS_LATENCY_3           |</span><br><span class="line">                     SDRAM_MODEREG_OPERATING_MODE_STANDARD |</span><br><span class="line">                     SDRAM_MODEREG_WRITEBURST_MODE_SINGLE;</span><br><span class="line">  </span><br><span class="line">  Command.CommandMode             = FMC_SDRAM_CMD_LOAD_MODE;</span><br><span class="line">  Command.CommandTarget           = FMC_SDRAM_CMD_TARGET_BANK2;</span><br><span class="line">  Command.AutoRefreshNumber       = <span class="number">1</span>;</span><br><span class="line">  Command.ModeRegisterDefinition  = tmpmrd;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Send the command */</span></span><br><span class="line">  HAL_SDRAM_SendCommand(&amp;hsdram1, &amp;Command, SDRAM_TIMEOUT);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* Step 6: Set the refresh rate counter */</span></span><br><span class="line">  <span class="comment">/* Set the device refresh rate */</span></span><br><span class="line">  HAL_SDRAM_ProgramRefreshRate(&amp;hsdram1, REFRESH_COUNT); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在SDRAM初始化函数末尾引用SDRAM初始配置函数</p>
+<h3 id="引用驱动函数"><a href="#引用驱动函数" class="headerlink" title="引用驱动函数"></a>引用驱动函数</h3><ul>
+<li>如果驱动文件里有同main.c文件中同类的变量或常量，需要使用<code>extern</code>标识符和宏定义替换掉驱动文件中的变量或常量，如下</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> DMA2D_HandleTypeDef hdma2d;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> LTDC_HandleTypeDef hltdc;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  LtdcHandler hltdc</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  Dma2dHandler hdma2d</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>和项目无关的驱动函数一定要删干净，可以先删类型定义和变量，然后编译，哪里出错删哪里</li>
+<li>一定要删掉main.c中已实现的功能函数以及变量，防止后期码代码时函数调用混乱导致可移植性下降</li>
+<li>仔细阅读驱动文件的宏定义和数据，按照自己的开发环境去修改驱动文件的宏定义和数据</li>
+</ul>
+<p>干完这些，就可以实现一些基本的功能了，比如刷屏实验以及字符显示</p>
+<h3 id="字符显示实验"><a href="#字符显示实验" class="headerlink" title="字符显示实验"></a>字符显示实验</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LCD_SetLayerVisible(<span class="number">1</span>,DISABLE);</span><br><span class="line">LCD_SetLayerVisible(<span class="number">0</span>,ENABLE);</span><br><span class="line">LCD_SetTransparency(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">LCD_SetTransparency(<span class="number">0</span>,<span class="number">255</span>);</span><br><span class="line">LCD_SelectLayer(<span class="number">0</span>);</span><br><span class="line">LCD_Clear(LCD_COLOR_BLUE);</span><br><span class="line">LCD_SetTextColor(LCD_COLOR_RED);</span><br><span class="line">LCD_SetBackColor(LCD_COLOR_BLUE);</span><br><span class="line">LCD_SetFont(&amp;Font24);</span><br><span class="line">LCD_DisplayStringLine(<span class="number">1</span>,(<span class="keyword">uint8_t</span> *)<span class="string">&quot;ok!!&quot;</span>);</span><br><span class="line">LCD_DrawCircle(<span class="number">200</span>,<span class="number">200</span>,<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="LED配置"><a href="#LED配置" class="headerlink" title="LED配置"></a>LED配置</h3><p>在滴答定时器中断区编写程序，让LED闪烁</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> time_flag=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief This function handles System tick timer.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SysTick_Handler</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/* USER CODE BEGIN SysTick_IRQn 0 */</span></span><br><span class="line">		</span><br><span class="line">	<span class="keyword">if</span>(time_flag&gt;=<span class="number">1000</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_GPIO_TogglePin(GPIOH,LED_G_Pin);</span><br><span class="line">		time_flag=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	time_flag+=<span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">  <span class="comment">/* USER CODE END SysTick_IRQn 0 */</span></span><br><span class="line">  HAL_IncTick();</span><br><span class="line">  <span class="comment">/* USER CODE BEGIN SysTick_IRQn 1 */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* USER CODE END SysTick_IRQn 1 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>下载至开发板，重启开发板</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>官方驱动文件目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STM32Cube_FW_F4_V1.25.0/Drivers/BSP/</span><br></pre></td></tr></table></figure>
+
+<p>项目文件下载</p>
+<ul>
+<li>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1P7m3ch2QDxkNCh27rSpSjQ">百度网盘</a> 提取码：<code>pto5</code></li>
+</ul>
+<p>文件校验数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">名称: LCD_Basis.7z</span><br><span class="line">大小: 6040859 字节 (5899 KiB)</span><br><span class="line">CRC32: 5E230E1B</span><br><span class="line">CRC64: D8466336C068497F</span><br><span class="line">SHA256: 8E0E95E778AB12D838E8BE9CD2D2CF06602DBEE4D17240536ED90735C49893D9</span><br><span class="line">SHA1: FF69897C0492E27D7D2B38C75F4CC2F83B4D111D</span><br><span class="line">BLAKE2sp: FEE6B0BA79D124F4FCBBCA423130411FBDA09BBA890318FD4E1DEEFB02FDED7B</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ZZT
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zztweb.top/posts/7109b92c.html" title="STM32CubeMX配置LTDC">https://zztweb.top/posts/7109b92c.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/STM32/" rel="tag"># STM32</a>
+          
+            <a href="/tags/STM32CubeMX/" rel="tag"># STM32CubeMX</a>
+          
+            <a href="/tags/ARM/" rel="tag"># ARM</a>
+          
+            <a href="/tags/HAL/" rel="tag"># HAL</a>
+          
+            <a href="/tags/LCD/" rel="tag"># LCD</a>
+          
+            <a href="/tags/LTDC/" rel="tag"># LTDC</a>
+          
+            <a href="/tags/Keil/" rel="tag"># Keil</a>
+          
+            <a href="/tags/MKD-ARM/" rel="tag"># MKD-ARM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/ac65f6e8.html" rel="next" title="CodeBlocks配置编译器以及调试器">
+                <i class="fa fa-chevron-left"></i> CodeBlocks配置编译器以及调试器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/3e4bdf1e.html" rel="prev" title="STM32CubeMX配置LTDC时遇到的一些问题">
+                STM32CubeMX配置LTDC时遇到的一些问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/hand.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/zzttzz/blog" target="_blank" title="gitee">
+                      
+                        <i class="fa fa-fw fa-github"></i>gitee</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xhxez262zhangzetao@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%85%88%E5%AE%89%E6%8E%92"><span class="nav-number">1.</span> <span class="nav-text">事先安排</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32CubeMX%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">STM32CubeMX配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%8A%AF%E7%89%87"><span class="nav-number">2.1.</span> <span class="nav-text">使用芯片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%92%9F%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">时钟配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E5%A4%96%E9%83%A8%E9%AB%98%E9%80%9F%E6%97%B6%E9%92%9FHSE"><span class="nav-number">2.2.1.</span> <span class="nav-text">开启外部高速时钟HSE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AFLCD-TFT%E6%97%B6%E9%92%9F"><span class="nav-number">2.2.2.</span> <span class="nav-text">开启LCD-TFT时钟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%97%B6%E9%92%9F"><span class="nav-number">2.2.3.</span> <span class="nav-text">配置时钟</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%B2%E5%8F%A3"><span class="nav-number">2.3.</span> <span class="nav-text">配置串口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEFMC-SDRAM"><span class="nav-number">2.4.</span> <span class="nav-text">配置FMC-SDRAM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E9%85%8D%E7%BD%AE"><span class="nav-number">2.4.1.</span> <span class="nav-text">功能配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E8%84%9A%E9%85%8D%E7%BD%AE"><span class="nav-number">2.4.2.</span> <span class="nav-text">引脚配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AELTDC"><span class="nav-number">2.5.</span> <span class="nav-text">配置LTDC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E9%85%8D%E7%BD%AE-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">功能配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">背景配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%B1%82%E6%98%BE%E5%AD%98%E9%85%8D%E7%BD%AE"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">图层显存配置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E8%84%9A%E9%85%8D%E7%BD%AE-1"><span class="nav-number">2.5.2.</span> <span class="nav-text">引脚配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEDMA2D"><span class="nav-number">2.6.</span> <span class="nav-text">配置DMA2D</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AELCD%E6%95%B0%E6%8D%AE%E4%BD%BF%E8%83%BD%E5%BC%95%E8%84%9A%E4%BB%A5%E5%8F%8A%E8%83%8C%E5%85%89%E5%BC%95%E8%84%9A"><span class="nav-number">2.7.</span> <span class="nav-text">配置LCD数据使能引脚以及背光引脚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BAMDK-ARM%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.8.</span> <span class="nav-text">输出MDK-ARM项目文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keil5%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">Keil5配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91printf-%E5%88%B0%E4%B8%B2%E5%8F%A3%E8%BE%93%E5%87%BA%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">重定向printf()到串口输出函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E6%A4%8DLTDC%E4%BD%BF%E8%83%BD%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">移植LTDC使能函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E6%A4%8DSDRAM%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">移植SDRAM初始配置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E9%A9%B1%E5%8A%A8%E5%87%BD%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">引用驱动函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E6%98%BE%E7%A4%BA%E5%AE%9E%E9%AA%8C"><span class="nav-number">3.5.</span> <span class="nav-text">字符显示实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LED%E9%85%8D%E7%BD%AE"><span class="nav-number">3.6.</span> <span class="nav-text">LED配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F"><span class="nav-number">3.7.</span> <span class="nav-text">结束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZT</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">29.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: '33qP7Cyge7WNP9N5oY3o3Liw-gzGzoHsz',
+        appKey: 'O2Pmj0Vo9kSeTQtGzxAvFG8A',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("33qP7Cyge7WNP9N5oY3o3Liw-gzGzoHsz", "O2Pmj0Vo9kSeTQtGzxAvFG8A");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/miku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+</html>

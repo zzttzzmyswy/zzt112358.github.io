@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="/lib/font-awesome/fonts/fonts.css/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ZZT.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ZZT.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ZZT.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/zzt.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C,C语言学习,四则计算器,表达式运算," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="ZZT Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="作为一个C语言初学者，本人的水平极其有限，在此写下自己在编写四则表达式计算器时的感悟和所用到的方法与思想，希望日后回头看当初的自己时有所感受。 程序目标 实现带括号的四则表达式的运算 支持小数 支持负数  程序思路 录入表达式到一个字符数组 对表达式进行分析 将表达式的数字与符号分开，分别放在两个数组中 创建一个包含指针以及所指向元素的类型的结构体数组，以原表达式的顺序指向数字和符号数组的元素">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言学习-运用后缀表达式实现的四则表达式计算器">
+<meta property="og:url" content="https://zztweb.top/posts/6a83b6d3.html">
+<meta property="og:site_name" content="ZZT Blog">
+<meta property="og:description" content="作为一个C语言初学者，本人的水平极其有限，在此写下自己在编写四则表达式计算器时的感悟和所用到的方法与思想，希望日后回头看当初的自己时有所感受。 程序目标 实现带括号的四则表达式的运算 支持小数 支持负数  程序思路 录入表达式到一个字符数组 对表达式进行分析 将表达式的数字与符号分开，分别放在两个数组中 创建一个包含指针以及所指向元素的类型的结构体数组，以原表达式的顺序指向数字和符号数组的元素">
+<meta property="og:locale">
+<meta property="og:image" content="https://api.ixiaowai.cn/gqapi/gqapi.php">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200413123946.PNG">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200413124008.PNG">
+<meta property="article:published_time" content="2019-10-20T07:29:39.000Z">
+<meta property="article:modified_time" content="2021-12-23T10:18:10.522Z">
+<meta property="article:author" content="ZZT">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="C语言学习">
+<meta property="article:tag" content="四则计算器">
+<meta property="article:tag" content="表达式运算">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.ixiaowai.cn/gqapi/gqapi.php">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zztweb.top/posts/6a83b6d3.html"/>
+
+
+
+
+
+  <title>C语言学习-运用后缀表达式实现的四则表达式计算器 | ZZT Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZZT Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zztweb.top/posts/6a83b6d3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/hand.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZZT Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">C语言学习-运用后缀表达式实现的四则表达式计算器</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-20T15:29:39+08:00">
+                2019-10-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-12-23T18:18:10+08:00">
+                2021-12-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/6a83b6d3.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/6a83b6d3.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/6a83b6d3.html" class="leancloud_visitors" data-flag-title="C语言学习-运用后缀表达式实现的四则表达式计算器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://api.ixiaowai.cn/gqapi/gqapi.php" alt="PIC"></p>
+<p>作为一个C语言初学者，本人的水平极其有限，在此写下自己在编写四则表达式计算器时的感悟和所用到的方法与思想，希望日后回头看当初的自己时有所感受。</p>
+<h2 id="程序目标"><a href="#程序目标" class="headerlink" title="程序目标"></a>程序目标</h2><ol>
+<li>实现带括号的四则表达式的运算</li>
+<li>支持小数</li>
+<li>支持负数</li>
+</ol>
+<h2 id="程序思路"><a href="#程序思路" class="headerlink" title="程序思路"></a>程序思路</h2><ol>
+<li>录入表达式到一个字符数组</li>
+<li>对表达式进行分析</li>
+<li>将表达式的数字与符号分开，分别放在两个数组中</li>
+<li>创建一个包含指针以及所指向元素的类型的结构体数组，以原表达式的顺序指向数字和符号数组的元素</li>
+<li>对结构体数组进行分析</li>
+<li>处理结构体数组指向元素中的负数</li>
+<li>将结构体数组指向的中缀表达式转换为后缀表达式，仍然用一个结构体数组储存其地址<code>(注：此操作只操作指针)</code></li>
+<li>运算后缀表达式</li>
+<li>输出结果</li>
+<li>将全局变量初始化，循环回第一步</li>
+</ol>
+<h2 id="程序实现"><a href="#程序实现" class="headerlink" title="程序实现"></a>程序实现</h2><blockquote>
+<p>注：有关符号的判断可以使用字符的整数值进行判断</p>
+<p>注：有关后缀表达式的介绍请移步<a href="/posts/6a83b6d3.html">C语言学习-后缀表达式</a></p>
+</blockquote>
+<h3 id="创建全局变量和指针"><a href="#创建全局变量和指针" class="headerlink" title="创建全局变量和指针"></a>创建全局变量和指针</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**定义全局变量和指针以及结构体**/</span></span><br><span class="line"><span class="keyword">char</span> original_string[MAX];			<span class="comment">//存放读取的字符串</span></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">double</span> number_array[MAX2]; 	<span class="comment">//存放分流出的数字</span></span><br><span class="line"><span class="keyword">char</span> char_array[MAX2];				<span class="comment">//存放分流出的字符</span></span><br><span class="line"><span class="keyword">char</span> *middle[MAX];					<span class="comment">//存放中缀表达式转后缀表达式的符号的指针</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">orginal_mix_t</span> = <span class="number">0</span>;				<span class="comment">//主要指示mix_d有多少个元素</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">original_t</span> = <span class="number">0</span>;					<span class="comment">//只指示original_string有多少个元素</span></span><br><span class="line"><span class="keyword">int</span> top = <span class="number">0</span>, top_m = <span class="number">0</span>;				<span class="comment">//指示后缀表达式数组的最后一位和middle数组的最后一位</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	Data,</span><br><span class="line">	Symbol</span><br><span class="line">&#125; data_type;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">mix</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">void</span> *d;</span><br><span class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">data_type</span> <span class="title">type</span>;</span></span><br><span class="line">&#125; mix;</span><br><span class="line">mix mix_d[MAX];  <span class="comment">//中缀表达式指针存放处</span></span><br><span class="line">mix suffix[MAX]; <span class="comment">//后缀表达式指针存放处</span></span><br><span class="line"><span class="comment">/**定义全局变量和指针以及结构体**/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建清理数据函数"><a href="#创建清理数据函数" class="headerlink" title="创建清理数据函数"></a>创建清理数据函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clean</span><span class="params">(<span class="keyword">int</span> left, <span class="keyword">int</span> right, mix mix_exp[MAX])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (left + i &lt;= <span class="keyword">orginal_mix_t</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		mix_exp[left + i] = mix_exp[right + i++];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">orginal_mix_t</span> = <span class="keyword">orginal_mix_t</span> - (right - left);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="录入表达式到字符数组"><a href="#录入表达式到字符数组" class="headerlink" title="录入表达式到字符数组"></a>录入表达式到字符数组</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;四则表达式计算器\n&quot;</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;请键入一个算式（支持四则混合运算和带括号运算）：\n&quot;</span>);</span><br><span class="line">gets(original_string);</span><br></pre></td></tr></table></figure>
+
+<h3 id="判定表达式中是否有非法字符"><a href="#判定表达式中是否有非法字符" class="headerlink" title="判定表达式中是否有非法字符"></a>判定表达式中是否有非法字符</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">judge</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = MAX1; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (original_string[MAX1 - i] != <span class="string">&#x27;\0&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!((original_string[MAX1 - i] == <span class="string">&#x27;.&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;1&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;2&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;3&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;4&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;5&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;6&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;7&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;8&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;9&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;0&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;/&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;*&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;-&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;+&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;(&#x27;</span>) || (original_string[MAX1 - i] == <span class="string">&#x27;)&#x27;</span>)))</span><br><span class="line">			&#123;</span><br><span class="line">				k++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">orginal_mix_t</span> = MAX1 - i;</span><br><span class="line">			i = <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">original_t</span> = <span class="keyword">orginal_mix_t</span>;</span><br><span class="line">	<span class="keyword">orginal_mix_t</span> = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (k == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n读取式子成功，正在计算中...\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;式子键入错误，错误%d处。\n&quot;</span>, k);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="判断有多少个字符和数字"><a href="#判断有多少个字符和数字" class="headerlink" title="判断有多少个字符和数字"></a>判断有多少个字符和数字</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dispose_long</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> <span class="keyword">t_t</span> = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; original_string[i] != <span class="string">&#x27;\0&#x27;</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!((original_string[i] == <span class="string">&#x27;.&#x27;</span>) || (original_string[i] == <span class="string">&#x27;1&#x27;</span>) || (original_string[i] == <span class="string">&#x27;2&#x27;</span>) || (original_string[i] == <span class="string">&#x27;3&#x27;</span>) || (original_string[i] == <span class="string">&#x27;4&#x27;</span>) || (original_string[i] == <span class="string">&#x27;5&#x27;</span>) || (original_string[i] == <span class="string">&#x27;6&#x27;</span>) || (original_string[i] == <span class="string">&#x27;7&#x27;</span>) || (original_string[i] == <span class="string">&#x27;8&#x27;</span>) || (original_string[i] == <span class="string">&#x27;9&#x27;</span>) || (original_string[i] == <span class="string">&#x27;0&#x27;</span>)))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">t_t</span> = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">orginal_mix_t</span>++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">t_t</span> == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">orginal_mix_t</span>++;</span><br><span class="line">			<span class="keyword">t_t</span> = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="将字符串转化为数字和符号"><a href="#将字符串转化为数字和符号" class="headerlink" title="将字符串转化为数字和符号"></a>将字符串转化为数字和符号</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">transform</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a1 = <span class="number">0</span>, a2 = <span class="number">0</span>, a3 = <span class="number">0</span>, a4 = <span class="number">1</span>, a5 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> zhong[<span class="number">50</span>][<span class="number">20</span>]; <span class="comment">//存放分流过程中的中转数字字符串</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="keyword">original_t</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ((*(original_string + i) == <span class="string">&#x27;0&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;1&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;2&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;3&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;4&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;5&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;6&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;7&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;8&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;9&#x27;</span>) || (*(original_string + i) == <span class="string">&#x27;.&#x27;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			zhong[a1][a2++] = *(original_string + i);</span><br><span class="line">			a4 = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (a4 == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				number_array[a1] = atof(zhong[a1]);</span><br><span class="line">				a2 = <span class="number">0</span>;</span><br><span class="line">				mix_d[a5].d = &amp;number_array[a1++];</span><br><span class="line">				mix_d[a5++].type = Data;</span><br><span class="line">				a4 = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			char_array[a3] = *(original_string + i);</span><br><span class="line">			mix_d[a5].d = &amp;char_array[a3++];</span><br><span class="line">			mix_d[a5++].type = Symbol;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理负数"><a href="#处理负数" class="headerlink" title="处理负数"></a>处理负数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">negative</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="keyword">orginal_mix_t</span> - <span class="number">3</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (((*(<span class="keyword">char</span> *)mix_d[i].d) == <span class="string">&#x27;(&#x27;</span>) &amp;&amp; ((*(<span class="keyword">char</span> *)mix_d[i + <span class="number">3</span>].d) == <span class="string">&#x27;)&#x27;</span>) &amp;&amp; (mix_d[i].type == Symbol) &amp;&amp; (mix_d[i + <span class="number">3</span>].type == Symbol))</span><br><span class="line">		&#123;</span><br><span class="line">			*(<span class="keyword">long</span> <span class="keyword">double</span> *)mix_d[i + <span class="number">2</span>].d = (*(<span class="keyword">long</span> <span class="keyword">double</span> *)mix_d[i + <span class="number">2</span>].d) * (<span class="number">-1</span>);</span><br><span class="line">			clean(i - <span class="number">1</span>, i + <span class="number">1</span>, mix_d);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">to_suffix</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="keyword">orginal_mix_t</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (mix_d[i].type == Data)</span><br><span class="line">		&#123;</span><br><span class="line">			suffix[top++] = mix_d[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (mix_d[i].type == Symbol)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (middle[<span class="number">0</span>] == <span class="number">0x00000000</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				middle[top_m] = (<span class="keyword">char</span> *)mix_d[i].d;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (*(<span class="keyword">char</span> *)mix_d[i].d == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				middle[++top_m] = (<span class="keyword">char</span> *)mix_d[i].d;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (*(<span class="keyword">char</span> *)mix_d[i].d == <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">while</span> ((top_m &gt;= <span class="number">0</span>) &amp;&amp; (*(<span class="keyword">char</span> *)middle[top_m] != <span class="string">&#x27;(&#x27;</span>))</span><br><span class="line">				&#123;</span><br><span class="line">					suffix[top].d = middle[top_m];</span><br><span class="line">					suffix[top++].type = Symbol;</span><br><span class="line">					top_m--;</span><br><span class="line">				&#125;</span><br><span class="line">				top_m--;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> ((*(<span class="keyword">char</span> *)mix_d[i].d == <span class="string">&#x27;*&#x27;</span>) || (*(<span class="keyword">char</span> *)mix_d[i].d == <span class="string">&#x27;/&#x27;</span>))</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">while</span> ((top_m &gt;= <span class="number">0</span>) &amp;&amp; (((top_m &gt;= <span class="number">0</span>) &amp;&amp; *(<span class="keyword">char</span> *)middle[top_m] == <span class="string">&#x27;/&#x27;</span>) || (*(<span class="keyword">char</span> *)middle[top_m] == <span class="string">&#x27;*&#x27;</span>)))</span><br><span class="line">				&#123;</span><br><span class="line">					suffix[top].d = middle[top_m--];</span><br><span class="line">					suffix[top++].type = Symbol;</span><br><span class="line">				&#125;</span><br><span class="line">				middle[++top_m] = (<span class="keyword">char</span> *)mix_d[i].d;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> ((*(<span class="keyword">char</span> *)mix_d[i].d == <span class="string">&#x27;+&#x27;</span>) || (*(<span class="keyword">char</span> *)mix_d[i].d == <span class="string">&#x27;-&#x27;</span>))</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">while</span> ((top_m &gt;= <span class="number">0</span>) &amp;&amp; ((*(<span class="keyword">char</span> *)middle[top_m] == <span class="string">&#x27;/&#x27;</span>) || (*(<span class="keyword">char</span> *)middle[top_m] == <span class="string">&#x27;*&#x27;</span>) || (*(<span class="keyword">char</span> *)middle[top_m] == <span class="string">&#x27;+&#x27;</span>) || (*(<span class="keyword">char</span> *)middle[top_m] == <span class="string">&#x27;-&#x27;</span>)))</span><br><span class="line">				&#123;</span><br><span class="line">					suffix[top].d = middle[top_m--];</span><br><span class="line">					suffix[top++].type = Symbol;</span><br><span class="line">				&#125;</span><br><span class="line">				middle[++top_m] = (<span class="keyword">char</span> *)mix_d[i].d;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (top_m &gt;= <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		suffix[top].d = middle[top_m--];</span><br><span class="line">		suffix[top++].type = Symbol;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主计算函数"><a href="#主计算函数" class="headerlink" title="主计算函数"></a>主计算函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">double</span> <span class="title">main_num</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="keyword">orginal_mix_t</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> ((suffix[i].type == Symbol) &amp;&amp; i &gt;= <span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">2</span>].d = num(i);</span><br><span class="line">			clean(i - <span class="number">2</span>, i, suffix);</span><br><span class="line">			i = i - <span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> *(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[<span class="number">0</span>].d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">double</span> <span class="title">num</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">switch</span> (*(<span class="keyword">char</span> *)suffix[i].d)</span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">		<span class="keyword">return</span> ((*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">2</span>].d) * (*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">1</span>].d));</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">		<span class="keyword">return</span> ((*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">2</span>].d) - (*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">1</span>].d));</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">		<span class="keyword">return</span> ((*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">2</span>].d) + (*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">1</span>].d));</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">		<span class="keyword">return</span> ((*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">2</span>].d) / (*(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[i - <span class="number">1</span>].d));</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;\n结果是：%lf\n&quot;</span>, *(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[<span class="number">0</span>].d);</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化数据并循环"><a href="#初始化数据并循环" class="headerlink" title="初始化数据并循环"></a>初始化数据并循环</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clean_all</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(original_string, <span class="number">0x00</span>, <span class="keyword">sizeof</span>(<span class="keyword">char</span>) * MAX);</span><br><span class="line">	<span class="built_in">memset</span>(char_array, <span class="number">0x00</span>, <span class="keyword">sizeof</span>(<span class="keyword">char</span>) * MAX2);</span><br><span class="line">	<span class="built_in">memset</span>(number_array, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">long</span> <span class="keyword">double</span>) * MAX2);</span><br><span class="line">	<span class="built_in">memset</span>(middle, <span class="number">0x00000000</span>, <span class="keyword">sizeof</span>(<span class="keyword">char</span> *) * MAX2);</span><br><span class="line">	<span class="built_in">memset</span>(mix_d-&gt;d, <span class="number">0x000000000</span>, <span class="keyword">sizeof</span>(<span class="keyword">void</span> *) * MAX2);</span><br><span class="line">	<span class="built_in">memset</span>(suffix-&gt;d, <span class="number">0x000000000</span>, <span class="keyword">sizeof</span>(<span class="keyword">void</span> *) * MAX2);</span><br><span class="line">	<span class="keyword">orginal_mix_t</span> = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">original_t</span> = <span class="number">0</span>;</span><br><span class="line">	top = <span class="number">0</span>;</span><br><span class="line">	top_m = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主main函数"><a href="#主main函数" class="headerlink" title="主main函数"></a>主<code>main</code>函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;四则表达式计算器\n&quot;</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;请键入一个算式（支持四则混合运算和带括号运算）：\n&quot;</span>);</span><br><span class="line">		gets(original_string);</span><br><span class="line">		<span class="keyword">if</span> (judge())</span><br><span class="line">		&#123;</span><br><span class="line">			clean_all();</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		dispose_long();</span><br><span class="line">		transform();</span><br><span class="line">		negative();</span><br><span class="line">		to_suffix();</span><br><span class="line">		main_num();</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n结果是：%lf\n&quot;</span>, *(<span class="keyword">long</span> <span class="keyword">double</span> *)suffix[<span class="number">0</span>].d);</span><br><span class="line">		clean_all();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="程序效果"><a href="#程序效果" class="headerlink" title="程序效果"></a>程序效果</h2><p>程序的结果：</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200413123946.PNG"></p>
+<hr>
+<p>网页<a target="_blank" rel="noopener" href="https://zh.numberempire.com/expressioncalculator.php"><code>表达式计算器</code></a>的结果：</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200413124008.PNG"></p>
+<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a target="_blank" rel="noopener" href="https://gitee.com/zzttzz/blogpic/raw/master/pic/c_four_arithmetic-ZZT.7z">四则表达式运算源码和程序下载</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">名称: c_four_arithmetic-ZZT.7z</span><br><span class="line">大小: 13615 字节 (13 KiB)</span><br><span class="line"></span><br><span class="line">CRC32: 66526331</span><br><span class="line">CRC64: 97A40258714385B9</span><br><span class="line">SHA256: C43CEFB0BC74B4FEECD8CAF48D9FA0476E5DB44CD72816CEF11C2801F856D35F</span><br><span class="line">SHA1: B461438F0CC371F57616E6D8FED4B6B87D62E3A9</span><br><span class="line">BLAKE2sp: 745A98E9AF301AA0FAF041D61765002CC0D30F98736015EC9EE45BBF3F6ADBD6</span><br><span class="line"></span><br><span class="line">解压密码: ZZTTZZ</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>毕竟是初学C语言，对C的掌握和熟悉还是不够。看了看网上大佬的代码，觉得我进步的空间还很大。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ZZT
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zztweb.top/posts/6a83b6d3.html" title="C语言学习-运用后缀表达式实现的四则表达式计算器">https://zztweb.top/posts/6a83b6d3.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" rel="tag"># C语言学习</a>
+          
+            <a href="/tags/%E5%9B%9B%E5%88%99%E8%AE%A1%E7%AE%97%E5%99%A8/" rel="tag"># 四则计算器</a>
+          
+            <a href="/tags/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%90%E7%AE%97/" rel="tag"># 表达式运算</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/64376614.html" rel="next" title="C语言学习-后缀表达式">
+                <i class="fa fa-chevron-left"></i> C语言学习-后缀表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/c934aed8.html" rel="prev" title="C语言学习-取整数的个位,十位,百位">
+                C语言学习-取整数的个位,十位,百位 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/hand.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/zzttzz/blog" target="_blank" title="gitee">
+                      
+                        <i class="fa fa-fw fa-github"></i>gitee</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xhxez262zhangzetao@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9B%AE%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">程序目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">程序思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">程序实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E6%8C%87%E9%92%88"><span class="nav-number">3.1.</span> <span class="nav-text">创建全局变量和指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%B8%85%E7%90%86%E6%95%B0%E6%8D%AE%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">创建清理数据函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%95%E5%85%A5%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%88%B0%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84"><span class="nav-number">3.3.</span> <span class="nav-text">录入表达式到字符数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E5%AE%9A%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E6%98%AF%E5%90%A6%E6%9C%89%E9%9D%9E%E6%B3%95%E5%AD%97%E7%AC%A6"><span class="nav-number">3.4.</span> <span class="nav-text">判定表达式中是否有非法字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%92%8C%E6%95%B0%E5%AD%97"><span class="nav-number">3.5.</span> <span class="nav-text">判断有多少个字符和数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%95%B0%E5%AD%97%E5%92%8C%E7%AC%A6%E5%8F%B7"><span class="nav-number">3.6.</span> <span class="nav-text">将字符串转化为数字和符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E8%B4%9F%E6%95%B0"><span class="nav-number">3.7.</span> <span class="nav-text">处理负数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">3.8.</span> <span class="nav-text">中缀表达式转后缀表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0"><span class="nav-number">3.9.</span> <span class="nav-text">主计算函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><span class="nav-number">3.10.</span> <span class="nav-text">输出结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E6%8D%AE%E5%B9%B6%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.11.</span> <span class="nav-text">初始化数据并循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BBmain%E5%87%BD%E6%95%B0"><span class="nav-number">3.12.</span> <span class="nav-text">主main函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">程序效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD"><span class="nav-number">5.</span> <span class="nav-text">源码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZT</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">29.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: '33qP7Cyge7WNP9N5oY3o3Liw-gzGzoHsz',
+        appKey: 'O2Pmj0Vo9kSeTQtGzxAvFG8A',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("33qP7Cyge7WNP9N5oY3o3Liw-gzGzoHsz", "O2Pmj0Vo9kSeTQtGzxAvFG8A");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/miku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+</html>

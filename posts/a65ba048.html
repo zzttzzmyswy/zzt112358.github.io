@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="/lib/font-awesome/fonts/fonts.css/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ZZT.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ZZT.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ZZT.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/zzt.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C,C语言学习,实验课,代码,大一实验课," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="ZZT Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="大一的实验课报告再此放出： 实验目的    通过上机实践编程，辅以典型例题，熟悉编程环境，提升实际动手编程能力。    掌握C语言的基本输入输出函数。    掌握C语言的三种程序结构(顺序结构、选择结构、循环结构)。    掌握冒泡排序法和选择排序法，并用其解决实际问题。    掌握C语言的9种控制语句并熟练运用。    掌握函数的定义和调用的方法与格式。    掌握一维数组以及多维数值的声明和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言学习-大一C语言实验课代码">
+<meta property="og:url" content="https://zztweb.top/posts/a65ba048.html">
+<meta property="og:site_name" content="ZZT Blog">
+<meta property="og:description" content="大一的实验课报告再此放出： 实验目的    通过上机实践编程，辅以典型例题，熟悉编程环境，提升实际动手编程能力。    掌握C语言的基本输入输出函数。    掌握C语言的三种程序结构(顺序结构、选择结构、循环结构)。    掌握冒泡排序法和选择排序法，并用其解决实际问题。    掌握C语言的9种控制语句并熟练运用。    掌握函数的定义和调用的方法与格式。    掌握一维数组以及多维数值的声明和">
+<meta property="og:locale">
+<meta property="og:image" content="https://api.ixiaowai.cn/gqapi/gqapi.php">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/1.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/2.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/3.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/4.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/5.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/6.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/7.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/8.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/9.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/10.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/11.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/12.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/13.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/14.PNG">
+<meta property="og:image" content="https://zztweb.top/file/pic/shiyanke/15.PNG">
+<meta property="article:published_time" content="2019-11-24T12:44:08.000Z">
+<meta property="article:modified_time" content="2021-12-23T10:18:10.523Z">
+<meta property="article:author" content="ZZT">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="C语言学习">
+<meta property="article:tag" content="实验课">
+<meta property="article:tag" content="代码">
+<meta property="article:tag" content="大一实验课">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.ixiaowai.cn/gqapi/gqapi.php">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zztweb.top/posts/a65ba048.html"/>
+
+
+
+
+
+  <title>C语言学习-大一C语言实验课代码 | ZZT Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZZT Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zztweb.top/posts/a65ba048.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/hand.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZZT Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">C语言学习-大一C语言实验课代码</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-24T20:44:08+08:00">
+                2019-11-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-12-23T18:18:10+08:00">
+                2021-12-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/a65ba048.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/a65ba048.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/a65ba048.html" class="leancloud_visitors" data-flag-title="C语言学习-大一C语言实验课代码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://api.ixiaowai.cn/gqapi/gqapi.php" alt="PIC"></p>
+<p>大一的实验课报告再此放出：</p>
+<h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ol>
+<li>   通过上机实践编程，辅以典型例题，熟悉编程环境，提升实际动手编程能力。</li>
+<li>   掌握C语言的基本输入输出函数。</li>
+<li>   掌握C语言的三种程序结构(顺序结构、选择结构、循环结构)。</li>
+<li>   掌握冒泡排序法和选择排序法，并用其解决实际问题。</li>
+<li>   掌握C语言的9种控制语句并熟练运用。</li>
+<li>   掌握函数的定义和调用的方法与格式。</li>
+<li>   掌握一维数组以及多维数值的声明和访问格式。</li>
+<li>   掌握字符串比较大小，字符串复制等有关字符串处理的函数。</li>
+<li>   学会利用C语言标准库中的函数来简化自己的代码。</li>
+</ol>
+<h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><h3 id="实验一"><a href="#实验一" class="headerlink" title="实验一"></a>实验一</h3><h4 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h4><ul>
+<li>题目：用scanf函数输入数据，a=3,b=7,x=8.2,y=123.22,c1=‘A’，c2=‘a’,用printf函数进行输出。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/1.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a, b;</span><br><span class="line">	<span class="keyword">float</span> x, y;</span><br><span class="line">	<span class="keyword">char</span> c1, c2;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;用scanf函数格式化输入数据，\na=3,b=7,x=8.2,y=123.22,c1=&#x27;A&#x27;,c2=&#x27;a&#x27;,\n用printf函数进行输出。\n注:输入的符号应为英文符号\n&quot;</span>);</span><br><span class="line">	scanf_s(<span class="string">&quot;a=%d,b=%d,x=%f,y=%f,c1=&#x27;%c&#x27;,c2=&#x27;%c&#x27;&quot;</span>,&amp;a,&amp;b,&amp;x,&amp;y,&amp;c1,<span class="number">1</span>,&amp;c2,<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a=%d,b=%d,x=%.1f,y=%.2f,c1=&#x27;%c&#x27;,c2=&#x27;%c&#x27;&quot;</span>,a,b,x,y,c1,c2);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a>第二题</h4><ul>
+<li>题目：设半径r=1.5,圆柱高h=3,求圆周长，圆面积，圆柱表面积，圆柱体积。用scanf输入数据，输出结果，输入要有文字说明，取小数点后2位数字。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/2.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.1415926535</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> r, h;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;计算圆周长，圆面积，圆柱表面积，圆柱体积的程序\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请输入半径r=&quot;</span>);</span><br><span class="line">	scanf_s(<span class="string">&quot;%lf&quot;</span>, &amp;r);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请输入高h=&quot;</span>);</span><br><span class="line">	scanf_s(<span class="string">&quot;%lf&quot;</span>, &amp;h);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;圆周长为%.2lf,圆面积为%.2lf,圆柱表面积为%.2lf,圆柱体积为%.2lf&quot;</span>, <span class="number">2</span> * PI * r, PI * r * r, <span class="number">2</span> * PI * r * h, PI * r * r * h);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三题"><a href="#第三题" class="headerlink" title="第三题"></a>第三题</h4><ul>
+<li>题目：给出一个不多于5位的正整数，要求：（1） 求出它是几位数？（2） 分别输出每个数字？</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/3.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 10</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jishu</span><span class="params">(<span class="keyword">char</span>* a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fenli</span><span class="params">(<span class="keyword">char</span>* a, <span class="keyword">char</span>* b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> c[MAX];</span><br><span class="line">	<span class="keyword">char</span> d[MAX] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请键入一个不多于五位的整数(可以多几位但一定不要超过%d位)：\n&quot;</span>,MAX);</span><br><span class="line">	scanf_s(<span class="string">&quot;%s&quot;</span>, c,<span class="number">10</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;它是%d位数\n&quot;</span>, jishu(c));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;分开输出：\n&quot;</span>);</span><br><span class="line">	fenli(c,d);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;逆序输出：%s&quot;</span>, d);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jishu</span><span class="params">(<span class="keyword">char</span>* a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (*(a + ++i) != <span class="string">&#x27;\0&#x27;</span>);</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fenli</span><span class="params">(<span class="keyword">char</span>* a,<span class="keyword">char</span>* b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, t = jishu(a);</span><br><span class="line">	<span class="keyword">while</span> (*(a + i) != <span class="string">&#x27;\0&#x27;</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;第%d位:%c\n&quot;</span>, i + <span class="number">1</span>, *(a + i));</span><br><span class="line">		*(b + --t) = *(a + i++);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实验二"><a href="#实验二" class="headerlink" title="实验二"></a>实验二</h3><h4 id="第一题-1"><a href="#第一题-1" class="headerlink" title="第一题"></a>第一题</h4><ul>
+<li>题目：输入两个正整数，求其最大公约数和最小公倍数。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/4.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHUCHU(max,min) &#123;printf(<span class="meta-string">&quot;最大公约数是%d,最小公倍数是%d&quot;</span>,max,min);&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a, b, a_1, b_1;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输入两个正整数，求其最大公约数和最小公倍数&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n请键入两个正整数（以空格分开）：\n&quot;</span>);</span><br><span class="line">	scanf_s(<span class="string">&quot;%d %d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">	a_1 = a; b_1 = b;</span><br><span class="line">	<span class="keyword">if</span> (a == b)&#123;</span><br><span class="line">		SHUCHU(a,b)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (a != b)&#123;</span><br><span class="line">			<span class="keyword">if</span> (a &gt; b)&#123;</span><br><span class="line">				a = a - b;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				b = b - a;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		SHUCHU(a, a_1 * b_1 / a)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二题-1"><a href="#第二题-1" class="headerlink" title="第二题"></a>第二题</h4><ul>
+<li>题目：一个数如果恰好等于它的因子之和，这个数就称为完数，例如6=1+2+3，编程找出1000之内的所有完数，并按下面格式输出其因子。    6 its factors are 1,2,3</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/5.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 1000</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输出%d内所有的完数：\n&quot;</span>, MAX);</span><br><span class="line">	<span class="keyword">int</span> middle_a = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> middle = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> middle_s[MAX] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i &lt;= MAX; i++)&#123;</span><br><span class="line">		middle = <span class="number">0</span>;</span><br><span class="line">		middle_a = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> t = <span class="number">1</span>; t &lt; i; t++)&#123;</span><br><span class="line">			<span class="keyword">if</span> (i % t == <span class="number">0</span>)&#123;</span><br><span class="line">				middle += t;</span><br><span class="line">				middle_s[middle_a++] = t;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		middle_s[middle_a] = MAX + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (i == middle)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\n%d its factors are &quot;</span>, i);</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; middle_s[a] != MAX + <span class="number">1</span>; a++)&#123;</span><br><span class="line">				<span class="keyword">if</span> (middle_s[a + <span class="number">1</span>] == MAX + <span class="number">1</span>)&#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, middle_s[a]);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%d,&quot;</span>, middle_s[a]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三题-1"><a href="#第三题-1" class="headerlink" title="第三题"></a>第三题</h4><ul>
+<li>题目：输入一行字符，分别统计出其中英文字母、空格、数字和其他字符的个数。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/6.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">data_analysis_typedef</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="keyword">int</span> small;</span><br><span class="line">	<span class="keyword">int</span> big;</span><br><span class="line">	<span class="keyword">int</span> blank;</span><br><span class="line">	<span class="keyword">int</span> other;</span><br><span class="line">&#125;data_analysis_typedef;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">data_analysis_typedef</span> <span class="title">data_analysis</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initialize</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">num_main</span><span class="params">(<span class="keyword">char</span>* a)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> data[MAX];</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请键入一行不大于%d个数的字符串(无汉字)：\n&quot;</span>, MAX);</span><br><span class="line">	gets(data);</span><br><span class="line">	initialize();</span><br><span class="line">	num_main(data);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;统计结果如下:\n数字有%d个\n小写字母有%d个\n大写字母有%d个\n空格有%d个\n其他字符有%d个\n字符总计%d个。\n&quot;</span>, data_analysis.num, data_analysis.small, data_analysis.big, data_analysis.blank, data_analysis.other, data_analysis.i);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initialize</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	data_analysis.big = <span class="number">0</span>;</span><br><span class="line">	data_analysis.i = <span class="number">0</span>;</span><br><span class="line">	data_analysis.num = <span class="number">0</span>;</span><br><span class="line">	data_analysis.other = <span class="number">0</span>;</span><br><span class="line">	data_analysis.small = <span class="number">0</span>;</span><br><span class="line">	data_analysis.blank = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">num_main</span><span class="params">(<span class="keyword">char</span>* a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (; *(a + data_analysis.i) != <span class="string">&#x27;\0&#x27;</span>; data_analysis.i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (*(a + data_analysis.i) &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; *(a + data_analysis.i) &lt;= <span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			data_analysis.num++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (*(a + data_analysis.i) &gt;= <span class="string">&#x27;a&#x27;</span> &amp;&amp; *(a + data_analysis.i) &lt;= <span class="string">&#x27;z&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			data_analysis.small++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (*(a + data_analysis.i) &gt;= <span class="string">&#x27;A&#x27;</span> &amp;&amp; *(a + data_analysis.i) &lt;= <span class="string">&#x27;Z&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			data_analysis.big++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (*(a + data_analysis.i) == <span class="number">0x20</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			data_analysis.blank++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			data_analysis.other++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实验三"><a href="#实验三" class="headerlink" title="实验三"></a>实验三</h3><h4 id="第一题-2"><a href="#第一题-2" class="headerlink" title="第一题"></a>第一题</h4><ul>
+<li>题目：从键盘输入10个整数，并求出这10个数的最大值及出现次数。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/7.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> data[<span class="number">10</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> max = <span class="number">0</span>, num = <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请键入10个整数(以空格分开)，将输出这10个数的最大值及出现次数：\n&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;第%d个数：&quot;</span>, i + <span class="number">1</span>);</span><br><span class="line">		scanf_s(<span class="string">&quot;%d&quot;</span>, data + i);</span><br><span class="line">	&#125;</span><br><span class="line">	max = data[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (max &lt; data[i])</span><br><span class="line">		&#123;</span><br><span class="line">			max = data[i];</span><br><span class="line">			num = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (max == data[i])</span><br><span class="line">		&#123;</span><br><span class="line">			num++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;最大数为%d\n&quot;</span>, max);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;最大数出现次数为%d\n&quot;</span>, num);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二题-2"><a href="#第二题-2" class="headerlink" title="第二题"></a>第二题</h4><ul>
+<li>题目：编写个人所得税计算器。输入个税起征点和月收入，计算应交税款。（起征点为2000元）|不超过500元的部分税率5％|超过500元至2000元的部分税率10％|超过2000元至5000元的部分税率15％|超过5000元至20000元的部分税率20％|超过20000元至40000元的部分税率25％|超过40000元至60000元的部分税率30％|超过60000元至80000元的部分税率35％|超过80000元至100000元的部分税率40％|超过100000元的部分税率45％。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/8.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">double</span> data = <span class="number">0.0</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">double</span> shui = <span class="number">0.0</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;个人所得税计算器-ZZT\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;计算标准：\n起征点为2000元\n不超过500元的部分税率5％\n超过500元至2000元的部分税率10％\n超过2000元至5000元的部分税率15％\n超过5000元至20000元的部分税率20％\n超过20000元至40000元的部分税率25％\n超过40000元至60000元的部分税率30％\n超过60000元至80000元的部分税率35％\n超过80000元至100000元的部分税率40％\n超过100000元的部分税率45％。\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请键入所得钱数：\n&quot;</span>);</span><br><span class="line">	scanf_s(<span class="string">&quot;%lf&quot;</span>, &amp;data);</span><br><span class="line">	<span class="keyword">if</span> (data &lt;= <span class="number">2000</span>)&#123;</span><br><span class="line">		shui = <span class="number">0.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		shui = <span class="number">500</span> * <span class="number">0.05</span> + <span class="number">1500</span> * <span class="number">0.10</span>;</span><br><span class="line">		<span class="keyword">if</span> (data &lt;= <span class="number">5000</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			shui += (data - <span class="number">2000</span>) * <span class="number">0.15</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			shui += <span class="number">3000</span> * <span class="number">0.15</span>;</span><br><span class="line">			<span class="keyword">if</span> (data &lt;= <span class="number">20000</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				shui += (data - <span class="number">5000</span>) * <span class="number">0.20</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				shui += <span class="number">15000</span> * <span class="number">0.20</span>;</span><br><span class="line">				<span class="keyword">if</span> (data &lt;= <span class="number">40000</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					shui += (data - <span class="number">20000</span>) * <span class="number">0.25</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					shui += <span class="number">20000</span> * <span class="number">0.25</span>;</span><br><span class="line">					<span class="keyword">if</span> (data &lt;= <span class="number">60000</span>)</span><br><span class="line">					&#123;</span><br><span class="line">						shui += (data - <span class="number">40000</span>) * <span class="number">0.30</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">					&#123;</span><br><span class="line">						shui += <span class="number">20000</span> * <span class="number">0.30</span>;</span><br><span class="line">						<span class="keyword">if</span> (data &lt;= <span class="number">80000</span>)</span><br><span class="line">						&#123;</span><br><span class="line">							shui += (data - <span class="number">60000</span>) * <span class="number">0.35</span>;</span><br><span class="line">						&#125;</span><br><span class="line">						<span class="keyword">else</span></span><br><span class="line">						&#123;</span><br><span class="line">							shui += <span class="number">20000</span> * <span class="number">0.35</span>;</span><br><span class="line">							<span class="keyword">if</span> (data &lt;= <span class="number">100000</span>)</span><br><span class="line">							&#123;</span><br><span class="line">								shui += (data - <span class="number">80000</span>) * <span class="number">0.40</span>;</span><br><span class="line">							&#125;</span><br><span class="line">							<span class="keyword">else</span></span><br><span class="line">							&#123;</span><br><span class="line">								shui += <span class="number">20000</span> * <span class="number">0.40</span>;</span><br><span class="line">								shui += (data - <span class="number">100000</span>) * <span class="number">0.45</span>;</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;个人所得税为%lf元&quot;</span>, shui);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实验四"><a href="#实验四" class="headerlink" title="实验四"></a>实验四</h3><h4 id="第一题-3"><a href="#第一题-3" class="headerlink" title="第一题"></a>第一题</h4><ul>
+<li>题目：写一个函数，将一个字符串中的元音字母复制到另一字符串，然后输出。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/9.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 1000</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[MAX] = &#123; <span class="string">&#x27;\0&#x27;</span> &#125;;</span><br><span class="line">	<span class="keyword">char</span> b[MAX] = &#123; <span class="string">&#x27;\0&#x27;</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> b_i = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请输入一个字符串(只有英文字母，且不能超过%d位)：\n&quot;</span>,MAX);</span><br><span class="line">	scanf_s(<span class="string">&quot;%s&quot;</span>,a,MAX);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; a[i] != <span class="string">&#x27;\0&#x27;</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[i] == <span class="string">&#x27;a&#x27;</span> || a[i] == <span class="string">&#x27;A&#x27;</span> || a[i] == <span class="string">&#x27;e&#x27;</span> || a[i] == <span class="string">&#x27;E&#x27;</span> || a[i] == <span class="string">&#x27;i&#x27;</span> || a[i] == <span class="string">&#x27;I&#x27;</span> || a[i] == <span class="string">&#x27;o&#x27;</span> || a[i] == <span class="string">&#x27;O&#x27;</span> || a[i] == <span class="string">&#x27;u&#x27;</span> || a[i] == <span class="string">&#x27;U&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			b[b_i++] = a[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;其中的元音字母有：%s\n&quot;</span>,b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二题-3"><a href="#第二题-3" class="headerlink" title="第二题"></a>第二题</h4><ul>
+<li>题目：一只公鸡十五元，一只母鸡十三元，三只小鸡十元。用一千元买鸡，可以各买公鸡、母鸡、小鸡多省只？</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/10.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 1000</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;已知. 一只公鸡十五元，一只母鸡十三元，三只小鸡十元。用一千元买鸡。\n&quot;</span>);</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> gj_p = <span class="number">15</span>, mj_p = <span class="number">13</span>, xj_p = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= MAX / gj_p; a++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">0</span>; b &lt;= MAX / mj_p; b++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> c = <span class="number">0</span>; c &lt;= MAX / xj_p; c++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (a * gj_p + b * mj_p + c * xj_p == MAX)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">&quot;公鸡：%d个，母鸡：%d个，小鸡：%d个。\t&quot;</span>, a, b, c * <span class="number">3</span>);</span><br><span class="line">					num++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;共计：%d种购买方式。&quot;</span>, num);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三题-2"><a href="#第三题-2" class="headerlink" title="第三题"></a>第三题</h4><ul>
+<li>题目：输入10个学生5门课的成绩，分别用函数实现下列功能：①计算每个学生平均分；②计算每门课的平均分；③找出50个分数中最高的分数所对应的学生和课程；④计算平均分方差：</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/11.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">data_retuen</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">double</span> e_student[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">double</span> e_s_a;</span><br><span class="line">	<span class="keyword">double</span> e_s_a2;</span><br><span class="line">	<span class="keyword">double</span> e_project[<span class="number">5</span>];</span><br><span class="line">	<span class="keyword">int</span> max[<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">double</span> fangcha;</span><br><span class="line">&#125;data_retuen;</span><br><span class="line"></span><br><span class="line"><span class="function">struct data_retuen* <span class="title">num_main</span><span class="params">(<span class="keyword">double</span> p[<span class="number">10</span>][<span class="number">5</span>])</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> data[<span class="number">10</span>][<span class="number">5</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a=<span class="number">0</span>; a &lt;= <span class="number">9</span>; a++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;请键入第%d个学生的五个成绩(以空格分开)：&quot;</span>, a + <span class="number">1</span>);</span><br><span class="line">		scanf_s(<span class="string">&quot;%lf %lf %lf %lf %lf&quot;</span>, data[a], data[a] + <span class="number">1</span>, data[a] + <span class="number">2</span>, data[a] + <span class="number">3</span>, data[a] + <span class="number">4</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;数据录入成功，正在计算中\n&quot;</span>);</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">data_retuen</span>* <span class="title">middle</span> =</span> num_main(data);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">9</span>; a++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;第%d个学生的平均分：%.3lf\n&quot;</span>, a + <span class="number">1</span>, middle-&gt;e_student[a]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">4</span>; a++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;第%d个课程的平均分：%.3lf\n&quot;</span>, a + <span class="number">1</span>, middle-&gt;e_project[a]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;最高分位%.3lf，第%d个学生，第%d个课程。\n&quot;</span>, data[middle-&gt;max[<span class="number">0</span>]][middle-&gt;max[<span class="number">1</span>]], middle-&gt;max[<span class="number">0</span>] + <span class="number">1</span>, middle-&gt;max[<span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;平均分方差：%.3lf&quot;</span>, middle-&gt;fangcha);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">struct data_retuen* <span class="title">num_main</span><span class="params">(<span class="keyword">double</span> p[<span class="number">10</span>][<span class="number">5</span>])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">data_retuen</span>* <span class="title">middle</span>;</span></span><br><span class="line">	middle = (struct data_retuen*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct data_retuen));</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">9</span>; a++)&#123;</span><br><span class="line">		middle-&gt;e_student[a] = (p[a][<span class="number">0</span>] + p[a][<span class="number">1</span>] + p[a][<span class="number">2</span>] + p[a][<span class="number">3</span>] + p[a][<span class="number">4</span>]) / <span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">0</span>; b &lt;= <span class="number">4</span>; b++)&#123;</span><br><span class="line">		middle-&gt;e_project[b] = (p[<span class="number">0</span>][b] + p[<span class="number">1</span>][b] + p[<span class="number">2</span>][b] + p[<span class="number">3</span>][b] + p[<span class="number">4</span>][b] + p[<span class="number">5</span>][b] + p[<span class="number">6</span>][b] + p[<span class="number">7</span>][b] + p[<span class="number">8</span>][b] + p[<span class="number">9</span>][b]) / <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	middle-&gt;max[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	middle-&gt;max[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">9</span>; a++)&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">0</span>; b &lt;= <span class="number">4</span>; b++)&#123;</span><br><span class="line">			<span class="keyword">if</span> (p[middle-&gt;max[<span class="number">0</span>]][middle-&gt;max[<span class="number">1</span>]] &lt;= p[a][b])&#123;</span><br><span class="line">				middle-&gt;max[<span class="number">0</span>] = a;</span><br><span class="line">				middle-&gt;max[<span class="number">1</span>] = b;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	middle-&gt;e_s_a2 = <span class="number">0.0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">9</span>; a++)&#123;</span><br><span class="line">		middle-&gt;e_s_a2 += middle-&gt;e_student[a] * middle-&gt;e_student[a];</span><br><span class="line">	&#125;</span><br><span class="line">	middle-&gt;e_s_a = <span class="number">0.0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">9</span>; a++)&#123;</span><br><span class="line">		middle-&gt;e_s_a += middle-&gt;e_student[a];</span><br><span class="line">	&#125;</span><br><span class="line">	middle-&gt;fangcha = <span class="number">0.1</span>* middle-&gt;e_s_a2 - (middle-&gt;e_s_a * <span class="number">0.1</span>) * (middle-&gt;e_s_a * <span class="number">0.1</span>);</span><br><span class="line">	<span class="keyword">return</span> middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实验五"><a href="#实验五" class="headerlink" title="实验五"></a>实验五</h3><h4 id="第一题-4"><a href="#第一题-4" class="headerlink" title="第一题"></a>第一题</h4><ul>
+<li>题目：输入3个整数，按由小到大的顺序输出。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/12.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> data[<span class="number">3</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> shuchu[<span class="number">3</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请键入三个整数(以空格分开)：\n&quot;</span>);</span><br><span class="line">	scanf_s(<span class="string">&quot;%d %d %d&quot;</span>, data, data + <span class="number">1</span>, data + <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">int</span> min = <span class="number">0</span>;</span><br><span class="line">	shuchu[<span class="number">0</span>] = data[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> t = <span class="number">0</span>; t &lt;= <span class="number">2</span>; t++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">1</span>; a++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (data[a] &lt; data[a + <span class="number">1</span>])</span><br><span class="line">			&#123;</span><br><span class="line">				k = data[a];</span><br><span class="line">				data[a] = data[a + <span class="number">1</span>];</span><br><span class="line">				data[a + <span class="number">1</span>] = k;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">2</span>; a &gt;= <span class="number">0</span>; a--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, data[a]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二题-4"><a href="#第二题-4" class="headerlink" title="第二题"></a>第二题</h4><ul>
+<li>题目：输入3个字符串，按由小到大的顺序输出。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/13.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> c[<span class="number">3</span>][<span class="number">1000</span>] = &#123; <span class="string">&#x27;\0&#x27;</span> &#125;;</span><br><span class="line">	<span class="keyword">char</span> middle[<span class="number">1000</span>] = &#123; <span class="string">&#x27;\0&#x27;</span> &#125;;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">2</span>; a++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;请输入第%d个字符串：&quot;</span>, a + <span class="number">1</span>);</span><br><span class="line">		scanf_s(<span class="string">&quot;%s&quot;</span>, c[a], <span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> t = <span class="number">0</span>; t &lt;= <span class="number">2</span>; t++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= <span class="number">1</span>; a++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">strcmp</span>(c[a], c[a + <span class="number">1</span>]) &lt; <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				strcpy_s(middle, <span class="number">1000</span> * <span class="keyword">sizeof</span>(<span class="keyword">char</span>), c[a]);</span><br><span class="line">				strcpy_s(c[a], <span class="number">1000</span> * <span class="keyword">sizeof</span>(<span class="keyword">char</span>), c[a + <span class="number">1</span>]);</span><br><span class="line">				strcpy_s(c[a + <span class="number">1</span>], <span class="number">1000</span> * <span class="keyword">sizeof</span>(<span class="keyword">char</span>), middle);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;由小到大输出：\n&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">2</span>; a &gt;= <span class="number">0</span>; a--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, c[a]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三题-3"><a href="#第三题-3" class="headerlink" title="第三题"></a>第三题</h4><ul>
+<li>题目：有n个人围成一圈，顺序排号。从第1个人开始报数（从1到3报数），凡报到3的人退出圈子，问最后留下的是原来第几号的那位。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/14.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> address;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">&#125;data_tp;</span><br><span class="line">data_tp data[MAX];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请输入人数n(最大为%d)：&quot;</span>, MAX);</span><br><span class="line">	scanf_s(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; n; a++)&#123;</span><br><span class="line">		data[a].address = a + <span class="number">1</span>;</span><br><span class="line">		data[a].i = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; n &amp;&amp; b &lt;= <span class="number">3</span> * (n - <span class="number">1</span>); a++)&#123;</span><br><span class="line">		<span class="keyword">if</span> (data[a].i == <span class="number">0</span>)&#123;</span><br><span class="line">			b--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (((b + <span class="number">1</span>) % <span class="number">3</span> == <span class="number">0</span>) &amp;&amp; (data[a].i == <span class="number">1</span>))&#123;</span><br><span class="line">			data[a].i = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a == n - <span class="number">1</span>)&#123;</span><br><span class="line">			a = <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		b++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; n; a++)&#123;</span><br><span class="line">		<span class="keyword">if</span> (data[a].i == <span class="number">1</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;剩下的人的位置为：%d\n&quot;</span>, data[a].address);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第四题"><a href="#第四题" class="headerlink" title="第四题"></a>第四题</h4><ul>
+<li>题目：有一字符串，包含n个字符。写一函数，将此字符串从中第m个字符开始的全部字符复制成为另一个字符串。</li>
+<li>开发环境：Visual Studio 2019</li>
+<li>运行结果：<img src="/file/pic/shiyanke/15.PNG" alt="大一C语言实验课代码"></li>
+<li>程序代码：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 10000</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">st_copy</span><span class="params">(<span class="keyword">char</span>* p, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span>* p = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * MAX);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输入一个字符串(不能输入中文，最大字符数为：%d)：\n&quot;</span>, MAX);</span><br><span class="line">	scanf_s(<span class="string">&quot;%s&quot;</span>, p, MAX);</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">0</span>, m = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (*(p + n++) != <span class="string">&#x27;\0&#x27;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;字符串有%d个字符，请键入m的值：&quot;</span>, n - <span class="number">1</span>);</span><br><span class="line">	scanf_s(<span class="string">&quot;%d&quot;</span>, &amp;m);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, st_copy(p, n - <span class="number">1</span>, m - <span class="number">1</span>));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">st_copy</span><span class="params">(<span class="keyword">char</span>* p, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (m &gt;= n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> &amp;<span class="string">&quot;发生错误：m必须小于n.&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">char</span>* middle = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (n - m + <span class="number">1</span>));</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt;= n - m; a++)</span><br><span class="line">	&#123;</span><br><span class="line">		*(middle + a) = *(p + m + a);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="思考总结"><a href="#思考总结" class="headerlink" title="思考总结"></a>思考总结</h2><p>实验5.3中的结构体数组定义是我的漏洞之一，在此次实验中我通过查阅资料和实践操作掌握的结构体数组的定义。实验5.4让我更加扎实地掌握了指针型函数的定义与使用。在写代码的过程中不断地错误让我意识到调试地重要性，也学会了如何才能更快地找到自己代码地错误。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ZZT
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zztweb.top/posts/a65ba048.html" title="C语言学习-大一C语言实验课代码">https://zztweb.top/posts/a65ba048.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" rel="tag"># C语言学习</a>
+          
+            <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%BE/" rel="tag"># 实验课</a>
+          
+            <a href="/tags/%E4%BB%A3%E7%A0%81/" rel="tag"># 代码</a>
+          
+            <a href="/tags/%E5%A4%A7%E4%B8%80%E5%AE%9E%E9%AA%8C%E8%AF%BE/" rel="tag"># 大一实验课</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/c934aed8.html" rel="next" title="C语言学习-取整数的个位,十位,百位">
+                <i class="fa fa-chevron-left"></i> C语言学习-取整数的个位,十位,百位
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/93e92635.html" rel="prev" title="C语言学习-字符串转整数">
+                C语言学习-字符串转整数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/hand.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/zzttzz/blog" target="_blank" title="gitee">
+                      
+                        <i class="fa fa-fw fa-github"></i>gitee</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xhxez262zhangzetao@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="nav-number">2.</span> <span class="nav-text">实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%80"><span class="nav-number">2.1.</span> <span class="nav-text">实验一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A2%98"><span class="nav-number">2.1.1.</span> <span class="nav-text">第一题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A2%98"><span class="nav-number">2.1.2.</span> <span class="nav-text">第二题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%A2%98"><span class="nav-number">2.1.3.</span> <span class="nav-text">第三题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%8C"><span class="nav-number">2.2.</span> <span class="nav-text">实验二</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A2%98-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">第一题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A2%98-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">第二题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%A2%98-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">第三题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%89"><span class="nav-number">2.3.</span> <span class="nav-text">实验三</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A2%98-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">第一题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A2%98-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">第二题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%9B%9B"><span class="nav-number">2.4.</span> <span class="nav-text">实验四</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A2%98-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">第一题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A2%98-3"><span class="nav-number">2.4.2.</span> <span class="nav-text">第二题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%A2%98-2"><span class="nav-number">2.4.3.</span> <span class="nav-text">第三题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%94"><span class="nav-number">2.5.</span> <span class="nav-text">实验五</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A2%98-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">第一题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A2%98-4"><span class="nav-number">2.5.2.</span> <span class="nav-text">第二题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%A2%98-3"><span class="nav-number">2.5.3.</span> <span class="nav-text">第三题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%A2%98"><span class="nav-number">2.5.4.</span> <span class="nav-text">第四题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">思考总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZT</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">29.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: '33qP7Cyge7WNP9N5oY3o3Liw-gzGzoHsz',
+        appKey: 'O2Pmj0Vo9kSeTQtGzxAvFG8A',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("33qP7Cyge7WNP9N5oY3o3Liw-gzGzoHsz", "O2Pmj0Vo9kSeTQtGzxAvFG8A");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/miku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+</html>

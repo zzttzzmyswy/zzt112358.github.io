@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="/lib/font-awesome/fonts/fonts.css/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ZZT.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ZZT.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ZZT.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/zzt.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="STM32,Keil,SRAM,SRAM调试," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="ZZT Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原因虽然SRAM掉电清空，但是FLASH擦写实在是太慢了，对于我这种编程一小时50分钟在调试的新手而言，擦除数据的进度条是无比漫长的o(╥﹏╥)o BOOT0与BOOT1通过配置BOOT0和BOOT1引脚的高低点位可以改变芯片的启动方式，按照官方给的数据，两引脚同时配置低电位为FLASH启动，同时配置高电位为片内SRAM启动，我依稀记得好像通过设置这两个引脚的高低点位也可以解决烧录程序失败导致的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32配置Keil在SRAM中调试">
+<meta property="og:url" content="https://zztweb.top/posts/80d81344.html">
+<meta property="og:site_name" content="ZZT Blog">
+<meta property="og:description" content="原因虽然SRAM掉电清空，但是FLASH擦写实在是太慢了，对于我这种编程一小时50分钟在调试的新手而言，擦除数据的进度条是无比漫长的o(╥﹏╥)o BOOT0与BOOT1通过配置BOOT0和BOOT1引脚的高低点位可以改变芯片的启动方式，按照官方给的数据，两引脚同时配置低电位为FLASH启动，同时配置高电位为片内SRAM启动，我依稀记得好像通过设置这两个引脚的高低点位也可以解决烧录程序失败导致的">
+<meta property="og:locale">
+<meta property="og:image" content="https://api.ixiaowai.cn/gqapi/gqapi.php">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417180523.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417180523.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417181100.jpg">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417181345.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417181618.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417181627.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417182300.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417182538.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417182842.png">
+<meta property="og:image" content="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417183312.png">
+<meta property="article:published_time" content="2020-04-17T09:58:59.000Z">
+<meta property="article:modified_time" content="2021-12-23T10:18:10.511Z">
+<meta property="article:author" content="ZZT">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="Keil">
+<meta property="article:tag" content="SRAM">
+<meta property="article:tag" content="SRAM调试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.ixiaowai.cn/gqapi/gqapi.php">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zztweb.top/posts/80d81344.html"/>
+
+
+
+
+
+  <title>STM32配置Keil在SRAM中调试 | ZZT Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZZT Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zztweb.top/posts/80d81344.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/hand.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZZT Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">STM32配置Keil在SRAM中调试</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-17T17:58:59+08:00">
+                2020-04-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-12-23T18:18:10+08:00">
+                2021-12-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/STM32/" itemprop="url" rel="index">
+                    <span itemprop="name">STM32</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/80d81344.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/80d81344.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/80d81344.html" class="leancloud_visitors" data-flag-title="STM32配置Keil在SRAM中调试">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://api.ixiaowai.cn/gqapi/gqapi.php" alt="PIC"></p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>虽然SRAM掉电清空，但是FLASH擦写实在是太慢了，对于我这种编程一小时50分钟在调试的新手而言，擦除数据的进度条是无比漫长的o(╥﹏╥)o</p>
+<h2 id="BOOT0与BOOT1"><a href="#BOOT0与BOOT1" class="headerlink" title="BOOT0与BOOT1"></a>BOOT0与BOOT1</h2><p>通过配置BOOT0和BOOT1引脚的高低点位可以改变芯片的启动方式，按照官方给的数据，两引脚同时配置低电位为FLASH启动，同时配置高电位为片内SRAM启动，我依稀记得好像通过设置这两个引脚的高低点位也可以解决烧录程序失败导致的无限复位问题</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417180523.png"></p>
+<p>当然有些板子这两个引脚是焊死的，对于这种情况，也有相应的解决方案</p>
+<h2 id="可以控制启动引脚"><a href="#可以控制启动引脚" class="headerlink" title="可以控制启动引脚"></a>可以控制启动引脚</h2><h3 id="将两个启动引脚同时拉高"><a href="#将两个启动引脚同时拉高" class="headerlink" title="将两个启动引脚同时拉高"></a>将两个启动引脚同时拉高</h3><p>如图：</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417180523.png"></p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417181100.jpg"></p>
+<h3 id="新建SRAM版本的工程"><a href="#新建SRAM版本的工程" class="headerlink" title="新建SRAM版本的工程"></a>新建SRAM版本的工程</h3><p><code>Manage Project Items</code>可以让你在一个项目中管理不同配置的工程</p>
+<p>如图操作即可，建立你的新的配置</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417181345.png"></p>
+<p>然后切换到你所新建的调试版本</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417181618.png"></p>
+<h3 id="配置分散加载文件"><a href="#配置分散加载文件" class="headerlink" title="配置分散加载文件"></a>配置分散加载文件</h3><p>在<code>Options for Target-&gt;linker</code>页面中</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417181627.png"></p>
+<ul>
+<li>取消勾选<code>Use Memory Layout from Target Dialog</code></li>
+<li>自己选择一个路径新建分散加载配置文件，并在其中填入一下内容</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> ; *************************************************************</span><br><span class="line"> ; *** Scatter-Loading Description File generated by uVision ***</span><br><span class="line"> ; *************************************************************</span><br><span class="line"></span><br><span class="line">LR_IROM1 <span class="number">0x20000000</span> <span class="number">0x00010000</span> &#123; ; load region size_region</span><br><span class="line">	ER_IROM1 <span class="number">0x20000000</span> <span class="number">0x00010000</span> &#123; ; load address = execution address</span><br><span class="line">	 *.o (RESET, +First)</span><br><span class="line">	 *(InRoot$$Sections)</span><br><span class="line">	 .ANY (+RO)</span><br><span class="line">	&#125;</span><br><span class="line">	RW_IRAM1 <span class="number">0x20010000</span> <span class="number">0x00020000</span> &#123; ; RW data</span><br><span class="line">	 .ANY (+RW +ZI)</span><br><span class="line">	&#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：这个配置文件中的数据是根据芯片所设置的，我的芯片是<code>STM32F429IGT6</code>,所选地址分别为：<code>0x20000000</code> <code>0x00010000</code></p>
+</blockquote>
+<h3 id="配置中断向量表"><a href="#配置中断向量表" class="headerlink" title="配置中断向量表"></a>配置中断向量表</h3><p>打开你的<code>system_stm32f4xx.c</code>文件，找到如下内容</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Setup the microcontroller system</span></span><br><span class="line"><span class="comment">  *         Initialize the FPU setting, vector table location and External memory </span></span><br><span class="line"><span class="comment">  *         configuration.</span></span><br><span class="line"><span class="comment">  * @param  None</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SystemInit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/* FPU settings ------------------------------------------------------------*/</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">if</span> (__FPU_PRESENT == 1) &amp;&amp; (__FPU_USED == 1)</span></span><br><span class="line">    SCB-&gt;CPACR |= ((<span class="number">3UL</span> &lt;&lt; <span class="number">10</span>*<span class="number">2</span>)|(<span class="number">3UL</span> &lt;&lt; <span class="number">11</span>*<span class="number">2</span>));  <span class="comment">/* set CP10 and CP11 Full Access */</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)</span></span><br><span class="line">  SystemInit_ExtMemCtl(); </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* DATA_IN_ExtSRAM || DATA_IN_ExtSDRAM */</span></span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Configure the Vector Table location add offset address ------------------*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> VECT_TAB_SRAM</span></span><br><span class="line">  SCB-&gt;VTOR = SRAM_BASE | VECT_TAB_OFFSET; <span class="comment">/* Vector Table Relocation in Internal SRAM */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">  SCB-&gt;VTOR = FLASH_BASE | VECT_TAB_OFFSET; <span class="comment">/* Vector Table Relocation in Internal FLASH */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看见函数末尾的宏定义了吗，没错就是<code>VECT_TAB_SRAM</code>，把它复制到MDK编译环境里</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417182300.png"></p>
+<h3 id="修改MDK的烧录程序设置"><a href="#修改MDK的烧录程序设置" class="headerlink" title="修改MDK的烧录程序设置"></a>修改MDK的烧录程序设置</h3><p>按照图片所示修改设置，其中地址的修改需要同前面分散加载文件相对应</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417182538.png"></p>
+<p>这里可以看出储存空间的起点为<code>0x20000000</code>，但烧录空间的起始地址为<code>0x20010000</code>向后偏移了<code>0x10000</code>，这是因为前面的空间是作为虚拟ROM使用的，我们的程序所在的空间起点为后面的地址</p>
+<h3 id="仿真器设置"><a href="#仿真器设置" class="headerlink" title="仿真器设置"></a>仿真器设置</h3><p>按照图片所示配置，不这样配置无法调试</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417182842.png"></p>
+<h2 id="无法修改启动引脚"><a href="#无法修改启动引脚" class="headerlink" title="无法修改启动引脚"></a>无法修改启动引脚</h2><blockquote>
+<p>注：这个我没试过，但是和上面的方法出自同一本书，应该可行</p>
+</blockquote>
+<h3 id="新建SRAM版本的工程-1"><a href="#新建SRAM版本的工程-1" class="headerlink" title="新建SRAM版本的工程"></a>新建SRAM版本的工程</h3><p>这步同上面可以操控启动引脚的一致</p>
+<h3 id="编辑Debug-RAM-ini文件"><a href="#编辑Debug-RAM-ini文件" class="headerlink" title="编辑Debug_RAM.ini文件"></a>编辑Debug_RAM.ini文件</h3><p>如图，新建<code>Debug_RAM.ini</code>文件</p>
+<p><img src="https://gitee.com/zzttzz/blogpic/raw/master/pic/20200417183312.png"></p>
+<p>填入以下内容</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***********************************************************/</span></span><br><span class="line"><span class="comment">/* Debug_RAM.ini: Initialization File for Debugging from Internal RAM */</span></span><br><span class="line"><span class="comment">/******************************************************/</span></span><br><span class="line"><span class="comment">/* This file is part of the uVision/ARM development tools. */</span></span><br><span class="line"><span class="comment">/* Copyright (c) 2005-2014 Keil Software. All rights reserved. */</span></span><br><span class="line"><span class="comment">/* This software may only be used under the terms of a valid, current, */</span></span><br><span class="line"><span class="comment">/* end user licence from KEIL for a compatible version of KEIL software */</span></span><br><span class="line"><span class="comment">/*development tools. Nothing else gives you the right to use this software */</span></span><br><span class="line"><span class="comment">/***************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="function">FUNC <span class="keyword">void</span> <span class="title">Setup</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   SP = _RDWORD(<span class="number">0x20000000</span>); <span class="comment">// 设置栈指针 SP，把 0x20000000 地址中的内容赋值到 SP。</span></span><br><span class="line">   PC = _RDWORD(<span class="number">0x20000004</span>); <span class="comment">// 设置程序指针 PC，把 0x20000004 地址中的内容赋值到PC。</span></span><br><span class="line"></span><br><span class="line">   XPSR = <span class="number">0x01000000</span>; <span class="comment">// 设置状态寄存器指针 xPSR</span></span><br><span class="line">   _WDWORD(<span class="number">0xE000ED08</span>, <span class="number">0x20000000</span>); <span class="comment">// Setup Vector Table Offset Register</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LOAD %L INCREMENTAL <span class="comment">// 下载 axf 文件到 RAM</span></span><br><span class="line">Setup(); <span class="comment">//调用上面定义的 setup 函数设置运行环境</span></span><br><span class="line">   <span class="comment">//g, main //跳转到 main 函数，本示例调试时不需要从 main 函数执行，注释掉了，程序从启动代码开始执行</span></span><br></pre></td></tr></table></figure>
+
+<p>上述配置过程是控制MDK执行仿真器的脚本文件<code>Debug_RAM.ini</code>，而该脚本文件在下载了程序到SRAM后，初始化了SP指针(即 MSP)和PC指针分别指向了<code>0x20000000</code>和<code>0x20000004</code>，这样的操作等效于从SRAM复位</p>
+<p>有了这样的配置，即使BOOT0和BOOT1引脚不设置为SRAM启动也能正常仿真了，但点击下载按钮把程序下载到SRAM然后按复位是不能全速运行的(这种运行方式脱离了仿真器的控制，SP和PC指针无法被初始化指向SRAM)</p>
+<h2 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h2><p>开始我的 下载-&gt;运行-&gt;调试-&gt;出错-&gt;解决-&gt;下载······</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ZZT
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zztweb.top/posts/80d81344.html" title="STM32配置Keil在SRAM中调试">https://zztweb.top/posts/80d81344.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/STM32/" rel="tag"># STM32</a>
+          
+            <a href="/tags/Keil/" rel="tag"># Keil</a>
+          
+            <a href="/tags/SRAM/" rel="tag"># SRAM</a>
+          
+            <a href="/tags/SRAM%E8%B0%83%E8%AF%95/" rel="tag"># SRAM调试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/ee64b9e4.html" rel="next" title="STM32CubeMX配置LCD显示中文字符">
+                <i class="fa fa-chevron-left"></i> STM32CubeMX配置LCD显示中文字符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/20be8d71.html" rel="prev" title="manjaro下MySQL数据库的安装与可视化工具安装">
+                manjaro下MySQL数据库的安装与可视化工具安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/hand.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/zzttzz/blog" target="_blank" title="gitee">
+                      
+                        <i class="fa fa-fw fa-github"></i>gitee</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xhxez262zhangzetao@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BOOT0%E4%B8%8EBOOT1"><span class="nav-number">2.</span> <span class="nav-text">BOOT0与BOOT1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E4%BB%A5%E6%8E%A7%E5%88%B6%E5%90%AF%E5%8A%A8%E5%BC%95%E8%84%9A"><span class="nav-number">3.</span> <span class="nav-text">可以控制启动引脚</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E4%B8%A4%E4%B8%AA%E5%90%AF%E5%8A%A8%E5%BC%95%E8%84%9A%E5%90%8C%E6%97%B6%E6%8B%89%E9%AB%98"><span class="nav-number">3.1.</span> <span class="nav-text">将两个启动引脚同时拉高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BASRAM%E7%89%88%E6%9C%AC%E7%9A%84%E5%B7%A5%E7%A8%8B"><span class="nav-number">3.2.</span> <span class="nav-text">新建SRAM版本的工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%88%86%E6%95%A3%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">配置分散加载文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F%E8%A1%A8"><span class="nav-number">3.4.</span> <span class="nav-text">配置中断向量表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9MDK%E7%9A%84%E7%83%A7%E5%BD%95%E7%A8%8B%E5%BA%8F%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.5.</span> <span class="nav-text">修改MDK的烧录程序设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BF%E7%9C%9F%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.6.</span> <span class="nav-text">仿真器设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E4%BF%AE%E6%94%B9%E5%90%AF%E5%8A%A8%E5%BC%95%E8%84%9A"><span class="nav-number">4.</span> <span class="nav-text">无法修改启动引脚</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BASRAM%E7%89%88%E6%9C%AC%E7%9A%84%E5%B7%A5%E7%A8%8B-1"><span class="nav-number">4.1.</span> <span class="nav-text">新建SRAM版本的工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91Debug-RAM-ini%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">编辑Debug_RAM.ini文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%88%90"><span class="nav-number">5.</span> <span class="nav-text">完成</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZT</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">29.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: '33qP7Cyge7WNP9N5oY3o3Liw-gzGzoHsz',
+        appKey: 'O2Pmj0Vo9kSeTQtGzxAvFG8A',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("33qP7Cyge7WNP9N5oY3o3Liw-gzGzoHsz", "O2Pmj0Vo9kSeTQtGzxAvFG8A");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/miku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+</html>
